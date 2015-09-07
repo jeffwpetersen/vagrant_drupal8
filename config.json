@@ -3,7 +3,7 @@
     "name": "DrupalDevelopment",
     "ip": "192.168.44.66",
     "memory": "1024",
-    "url": "drupal8.dev",
+    "url": "drupal.dev",
     "synced_folders": [
       {
         "host_path": "data/",
