@@ -1,5 +1,10 @@
 Vagrant.configure("2") do |config|
 
+Vagrant.configure("2") do |config|
+  config.vm.provision "shell",
+    inline: "echo Install the Vagrant Hostupdater plugin to set your hostname automaticly"
+end
+
 #
 # config type JASON
 #

@@ -150,6 +150,10 @@ chmod 777 /var/www
 #  sudo service apache2 restart
 #  sudo service apache2 reload
 
+echo "Install Composer..."
+sudo curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+
 ##### Provision check #####
 
 # Create .provision_check for the script to check on during a next vargant up.
