@@ -2,7 +2,7 @@
   "vm": {
     "name": "DrupalDevelopment",
     "ip": "192.168.44.66",
-    "memory": "1024",
+    "memory": "512",
     "url": "drupal.dev",
     "synced_folders": [
       {
