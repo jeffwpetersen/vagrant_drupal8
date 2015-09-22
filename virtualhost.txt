@@ -1,0 +1,9 @@
+<VirtualHost *:80>
+    ServerName drupal8.dev
+    DocumentRoot "/var/www/html/drupal8/"
+    <Directory "/var/www/html/drupal8/">
+        Options Indexes FollowSymlinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>

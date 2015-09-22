@@ -74,6 +74,10 @@ service mysql restart
 echo "[vagrant provisioning] Installing common packages..."
 apt-get install -y mg apache2 mysql-server php5 libapache2-mod-php5 php5-mysql php5-gd php5-curl php5-mcrypt php5-cli php-pear php-apc php-codecoverage phpunit-mock-object keychain zsh subversion git curl nfs-kernel-server zip unzip exuberant-ctags
 
+#Enable mod_rewrite
+sudo a2enmod rewrite
+sudo service apache2 reload
+
 echo "[vagrant provisioning] Securing MySQL..."
 mysql -uroot -p$MYSQL_ROOT_PASSWORD mysql <<EOF
 drop user ''@'localhost';
@@ -81,6 +85,7 @@ drop user ''@'vagrant-ubuntu-precise-64';
 drop user 'root'@'vagrant-ubuntu-precise-64';
 delete from db where db like 'test%';
 drop database test;
+create database '$HOSTNAME';
 flush privileges;
 EOF
 
@@ -117,17 +122,6 @@ echo "[vagrant provisioning] Installing composer..."
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
-echo "[vagrant provisioning] Installing drush..."
-ORIG_DIR=`pwd`
-cd /usr/local
-git clone https://github.com/drush-ops/drush.git
-cd drush
-git checkout master
-chmod a+x drush
-ln -s /usr/local/drush/drush /usr/local/bin/drush
-composer -n install
-drush help 1>/dev/null 2>&1
-cd $ORIG_DIR
 
 echo "[vagrant provisioning] Installing java..."
 add-apt-repository -y ppa:webupd8team/java
@@ -150,9 +144,6 @@ chmod 777 /var/www
 #  sudo service apache2 restart
 #  sudo service apache2 reload
 
-echo "Install Composer..."
-sudo curl -sS https://getcomposer.org/installer | php
-sudo mv composer.phar /usr/local/bin/composer
 
 ##### Provision check #####
 
