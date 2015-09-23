@@ -85,7 +85,13 @@ drop user ''@'vagrant-ubuntu-precise-64';
 drop user 'root'@'vagrant-ubuntu-precise-64';
 delete from db where db like 'test%';
 drop database test;
-create database '$HOSTNAME';
+flush privileges;
+EOF
+
+echo "[vagrant provisioning] Setting up mysql..."
+mysql -uroot -p$MYSQL_ROOT_PASSWORD mysql<<EOF
+create database $DB_NAME;
+grant all on $DB_NAME.* to '$DB_USER'@'localhost' identified by '$DB_PASSWORD';
 flush privileges;
 EOF
 
